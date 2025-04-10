@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --font-redhat: "Red Hat Text", sans-serif;
+    color-scheme: dark;
+}
+
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    scroll-behavior: smooth;
+}
+
+@layer base {
+    ::selection {
+        @apply bg-primary text-rose-50
+    }
+
+    body {
+        @apply font-redhat bg-rose-50 text-rose-500 text-sm;
+    }
+}
