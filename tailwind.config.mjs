@@ -79,8 +79,8 @@ export default {
             '@apply font-semibold py-2 px-6 rounded-full cursor-pointer transition delay-100 ease-in':
               {}
           },
-          '.cart-btn': {
-            '@apply flex justify-center items-center gap-2 bg-white text-rose-900 absolute justify-self-center bottom-[90px] border-[1px] border-rose-400 hover:text-primary hover:border-primary hover:bg-rose-50 transition scale-100 delay-150 ease-in hover:scale-110 focus:scale-110 focus:border-primary focus:outline-none focus:ring-0 focus:bg-rose-50 focus:text-primary':
+          '.btn-primary': {
+            '@apply bg-white text-rose-900 border-[2px] border-rose-400 hover:text-primary hover:border-primary hover:bg-rose-50 transition scale-100 delay-150 ease-in hover:scale-110 focus:scale-110 focus:border-primary focus:outline-none focus:ring-0 focus:bg-rose-50 focus:text-primary':
               {}
           },
           '.orderConfirmed': {

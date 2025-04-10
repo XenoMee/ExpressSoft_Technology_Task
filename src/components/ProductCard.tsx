@@ -1,14 +1,12 @@
 import { Product } from 'data/menuData'
 
-type ProductCardProps = {
-  product: Product
-}
+type ProductCardProps = Product
 
-const ProductCard = ({ product }: ProductCardProps) => {
-  const { name, price, description, available } = product
+const ProductCard = (props: ProductCardProps) => {
+  const { name, price, description, available, quantity } = props
 
   return (
-    <div className="grid gap-10 relative">
+    <div className="grid gap-10">
       <div className="grid">
         <p className="heading3">{name}</p>
         <p className=" text-rose-500 text-sm">{description}</p>
@@ -17,9 +15,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
         </span>
 
         {available ? (
-          <button className="button cart-btn">Add to Cart</button>
+          <button className="button btn-primary justify-self-center">
+            Add to Cart
+          </button>
         ) : (
-          <button className="buttonc" disabled>
+          <button className="button" disabled>
             Not available
           </button>
         )}
