@@ -1,33 +1,35 @@
 import { useState } from 'react'
-import {
-  menuData,
-  Product,
-  MenuCategory,
-  SortDirection
-} from '../data/menuData'
-import ProductCard from 'components/ProductCard'
-import classNames from 'classnames'
+import { menuData, MenuCategory, SortDirection } from '../data/menuData'
 import CartSummary from 'components/CartSummary'
 import totalCartItems from 'utils/calculateTotalProducts'
 import EmptyCart from 'components/EmptyCart'
-import updateProductQuantity from 'utils/updateProductQuantity'
+import updateQuantity from 'utils/updateProductQuantity'
+import resetProductQuantity from 'utils/resetProductQuantity'
+import OrderConfirmation from 'components/OrderConfirmation'
+import CategoryFilter from 'components/CategoryFilter'
+import ProductList from 'components/ProductList'
+import AvailabilityList from 'components/AvailabilityList'
+import SearchAndSortControls from 'components/SearchAndSortControls'
 
 const Menu = () => {
   const [menuProducts, setMenuProducts] = useState<MenuCategory[]>(menuData)
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(
     new Set()
   )
+  const [modal, setModal] = useState(false)
   const [searchText, setSearchText] = useState('')
   const [sortDirection, setSortDirection] = useState<
     SortDirection | undefined
   >()
+
+  const products = menuProducts.flatMap(({ products }) => products)
 
   const productsToDisplay = menuProducts
     .filter(({ category }) => {
       return selectedCategories.size === 0 || selectedCategories.has(category)
     })
     .flatMap(({ products }) => products)
-    .filter(({ name }) => name.includes(searchText))
+    .filter(({ name }) => name.toLowerCase().includes(searchText))
     .sort((a, b) => {
       if (sortDirection === 'ASC') {
         return a.price - b.price
@@ -40,24 +42,10 @@ const Menu = () => {
       return 0
     })
 
-  const cartItems = menuProducts.flatMap((category) =>
-    category.products.filter((product) => product.quantity > 0)
-  )
-
-  // const increaseItemQuantity = (id: string, quantity = 1) => {
-  //   setMenuProducts(updateProductQuantity({ id, menuProducts, quantity }))
-  // }
-
-  // const decreaseItemQuantity = (id: string, quantity = 1) => {
-  //   setMenuProducts(
-  //     updateProductQuantity({ id, menuProducts, quantity: -quantity })
-  //   )
-  // }
-
-  function updateCategories(
+  const updateCategories = (
     category: string,
     e: React.ChangeEvent<HTMLInputElement>
-  ) {
+  ) => {
     const isChecked = e.target.checked
 
     setSelectedCategories((categories) => {
@@ -93,92 +81,74 @@ const Menu = () => {
     })
   }
 
+  const increaseQuantity = (productId: string, quantity: number = 1) => {
+    setMenuProducts(updateQuantity(productId, menuProducts, quantity))
+  }
+
+  const decreaseQuantity = (productId: string, quantity: number = -1) => {
+    setMenuProducts(updateQuantity(productId, menuProducts, quantity))
+  }
+
+  const removeProductFromCart = (productId: string) => {
+    setMenuProducts(resetProductQuantity(productId, menuProducts))
+  }
+
+  const startNewOrder = () => setMenuProducts(menuData)
+  const toggleModal = () => setModal((prevModal) => !prevModal)
+
+  const totalProductsInCart = totalCartItems(products)
+
   return (
     <>
-      <div>
-        <input
-          placeholder="Search..."
-          onChange={(e) => setSearchText(e.target.value || '')}
-        />
-      </div>
-
-      <div>
-        <select
-          name="price-sort"
-          onChange={(e) => setSortDirection(e.target.value as SortDirection)}
-        >
-          <option value="ASC">Ascendent</option>
-          <option value="DESC">Descendent</option>
-          <option value=""></option>
-        </select>
-      </div>
+      <SearchAndSortControls
+        setSearchText={setSearchText}
+        setSortDirection={setSortDirection}
+      />
 
       <div className="container grid gap-8 lg:grid-cols-[.7fr_.3fr] lg:gap-10">
         <div className="grid gap-12">
           <div className="grid gap-4 justify-items-center">
             <h1 className="heading1">Menu</h1>
-            <nav>
-              <ul className="flex gap-4 text-sm font-semibold text-primary">
-                {menuData.map(({ id, category }) => (
-                  <li key={id}>
-                    <label
-                      className={classNames(
-                        'button bg-primary text-white text-base hover:text-white hover:bg-primary-dark',
-                        {
-                          'bg-secondary': selectedCategories.has(category)
-                        }
-                      )}
-                    >
-                      <input
-                        type="checkbox"
-                        hidden
-                        onChange={(e) => updateCategories(category, e)}
-                      />
-                      {category}
-                    </label>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+            <CategoryFilter
+              menuData={menuData}
+              selectedCategories={selectedCategories}
+              updateCategories={updateCategories}
+            />
           </div>
 
-          <ul className="grid max-w-[800px] ss:grid-cols-auto-fit-250 sm:grid-cols-3 gap-8">
-            {productsToDisplay.map((product) => {
-              return (
-                <li key={product.id}>
-                  <ProductCard {...product} />
-                </li>
-              )
-            })}
-          </ul>
+          <ProductList
+            products={productsToDisplay}
+            increaseQuantity={increaseQuantity}
+            decreaseQuantity={decreaseQuantity}
+          />
 
-          <h2>Availability list</h2>
-          <ul>
-            {menuProducts.map((category) =>
-              category.products.map((product) => {
-                return (
-                  <li key={product.id}>
-                    <label>
-                      <input
-                        type="checkbox"
-                        checked={product.available}
-                        onChange={(e) => updateAvailability(product.id, e)}
-                      />
-                      {product.name}
-                    </label>
-                  </li>
-                )
-              })
-            )}
-          </ul>
+          <div className="grid gap-6">
+            <h2 className="heading2">Availability list</h2>
+            <AvailabilityList
+              menuProducts={menuProducts}
+              updateAvailability={updateAvailability}
+            />
+          </div>
         </div>
 
-        {totalCartItems(cartItems) > 0 ? (
-          <CartSummary menuProducts={menuProducts} cartItems={cartItems} />
+        {totalProductsInCart > 0 ? (
+          <CartSummary
+            removeFromCart={removeProductFromCart}
+            productsInCart={totalProductsInCart}
+            products={products}
+            toggleModal={toggleModal}
+          />
         ) : (
           <EmptyCart />
         )}
       </div>
+
+      <OrderConfirmation
+        toggle={toggleModal}
+        isOpen={modal}
+        products={products}
+        newOrder={startNewOrder}
+      />
     </>
   )
 }
