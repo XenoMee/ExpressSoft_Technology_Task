@@ -13,10 +13,10 @@ const AvailabilityList: React.FC<AvailabilityListProps> = ({
   updateAvailability
 }) => {
   return (
-    <ul className="inline-flex items-center justify-between">
+    <ul className="inline-flex items-center ss:justify-between max-ss:justify-start max-ss:gap-2 self-start flex-wrap">
       {menuProducts.map((category) =>
         category.products.map((product: Product) => (
-          <li key={product.id}>
+          <li key={product.id} className="">
             <label className="flex items-center gap-2 text-sm font-semibold text-primary">
               <input
                 type="checkbox"

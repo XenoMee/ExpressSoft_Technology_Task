@@ -39,7 +39,7 @@ export default {
         xxs: '320px',
         xs: '375px',
         ss: '620px',
-        sm: '785px',
+        sm: '850px',
         md: '1060px',
         lg: '1200px',
         wide: '1440px'

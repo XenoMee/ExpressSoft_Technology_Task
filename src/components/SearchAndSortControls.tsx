@@ -10,7 +10,7 @@ const SearchAndSortControls = ({
   setSortDirection
 }: SearchAndSortControlsProps) => {
   return (
-    <div className="grid gap-2">
+    <div className="grid gap-2 max-sm:w-[20rem] max-sm:mx-auto">
       <input
         placeholder="Search..."
         className="w-full rounded-md border-2 border-primary bg-white p-2 text-sm text-rose-900 placeholder:text-rose-900 focus:outline-none focus:ring-2 focus:ring-primary"

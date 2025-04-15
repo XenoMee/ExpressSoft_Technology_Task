@@ -101,13 +101,15 @@ const Menu = () => {
   return (
     <>
       <div className="container grid gap-8 lg:grid-cols-[.7fr_.3fr] lg:gap-10">
-        <div className="grid gap-12">
-          <div className="grid grid-cols-[.3fr_.7fr] items-center">
+        <div className="grid gap-10">
+          <div className="grid max-sm:grid-rows-3 items-center sm:grid-cols-[.3fr_.7fr]">
             <SearchAndSortControls
               setSearchText={setSearchText}
               setSortDirection={setSortDirection}
             />
-            <h1 className="heading1 ml-[7rem]">Menu</h1>
+            <h1 className="heading1 sm:ml-[7rem] max-sm:row-start-2 max-sm:row-end-3 max-sm:mx-auto">
+              Menu
+            </h1>
 
             <CategoryFilter
               menuData={menuData}
@@ -122,7 +124,7 @@ const Menu = () => {
             decreaseQuantity={decreaseQuantity}
           />
 
-          <div className="grid gap-6">
+          <div className="grid">
             <h2 className="heading2">Availability list</h2>
             <AvailabilityList
               menuProducts={menuProducts}

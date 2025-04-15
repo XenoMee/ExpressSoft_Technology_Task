@@ -15,7 +15,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
   updateCategories
 }) => {
   return (
-    <nav className="col-span-2 justify-self-center">
+    <nav className="justify-self-center sm:col-span-2">
       <ul className="flex gap-4 text-sm font-semibold text-primary">
         {menuData.map(({ id, category }) => (
           <li key={id}>

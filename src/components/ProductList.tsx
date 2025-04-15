@@ -12,7 +12,7 @@ const ProductList: React.FC<ProductListProps> = ({
   decreaseQuantity
 }) => {
   return (
-    <ul className="grid max-w-[800px] ss:grid-cols-auto-fit-250 sm:grid-cols-3 gap-8">
+    <ul className="grid max-w-[800px] ss:grid-cols-auto-fit-250 max-lg:justify-self-center sm:grid-cols-3 gap-8">
       {products.map((product) => (
         <li key={product.id} className="flex flex-col">
           <ProductCard
