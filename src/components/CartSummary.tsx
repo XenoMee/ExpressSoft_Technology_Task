@@ -1,5 +1,5 @@
-import CartItem from 'common/CartProduct'
 import { Product } from 'data/menuData'
+import CartItem from 'components/CartProduct'
 import totalPrice from 'utils/calculateTotalPrice'
 
 type CartSummaryProps = {
