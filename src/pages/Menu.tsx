@@ -99,9 +99,9 @@ const Menu = () => {
   const totalProductsInCart = totalCartItems(products)
 
   return (
-    <>
+    <main>
       <div className="container grid gap-8 lg:grid-cols-[.7fr_.3fr] lg:gap-10">
-        <div className="grid gap-10">
+        <section className="grid gap-10">
           <div className="grid max-sm:grid-rows-3 items-center sm:grid-cols-[.3fr_.7fr]">
             <SearchAndSortControls
               setSearchText={setSearchText}
@@ -131,7 +131,7 @@ const Menu = () => {
               updateAvailability={updateAvailability}
             />
           </div>
-        </div>
+        </section>
 
         {totalProductsInCart > 0 ? (
           <CartSummary
@@ -151,7 +151,7 @@ const Menu = () => {
         products={products}
         newOrder={startNewOrder}
       />
-    </>
+    </main>
   )
 }
 
