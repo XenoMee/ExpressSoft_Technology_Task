@@ -1,6 +1,16 @@
-const ProductQuantityButton = () => {
+type ProductQuantityButtonProps = {
+  productQuantity: number
+  increaseQuantity: () => void
+  decreaseQuantity: () => void
+}
+
+const ProductQuantityButton = ({
+  productQuantity,
+  increaseQuantity,
+  decreaseQuantity
+}: ProductQuantityButtonProps) => {
   return (
-    <div className="flex justify-between items-center w-36 absolute justify-self-center bottom-[90px] font-semibold bg-primary text-white py-2 px-4 rounded-full">
+    <div className="flex justify-between items-center justify-self-center w-36 font-semibold bg-primary text-white py-2 px-4 rounded-full">
       <button
         aria-label="Decrease quantity"
         className="group flex items-center justify-center border border-white w-5 h-5 rounded-full hover:bg-white"
@@ -17,7 +27,7 @@ const ProductQuantityButton = () => {
           <path d="M0 .375h10v1.25H0V.375Z" />
         </svg>
       </button>
-      <span>{itemQuantity}</span>
+      <span>{productQuantity}</span>
       <button
         aria-label="Increase quantity"
         className="group flex items-center justify-center border border-white w-5 h-5 rounded-full hover:bg-white"
