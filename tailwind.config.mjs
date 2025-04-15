@@ -52,6 +52,10 @@ export default {
 
       content: {
         confirmedIcon: 'url("/images/icon-order-confirmed.svg")'
+      },
+
+      backgroundImage: {
+        menu: 'url("/images/menu_background.jpg")'
       }
     }
   },
@@ -93,6 +97,10 @@ export default {
           },
           '.overlay': {
             '@apply fixed w-[100vw] h-[100vh] inset-0 bg-[rgba(0,0,0,0.5)]': {}
+          },
+          '.home-hero': {
+            '@apply relative bg-menu bg-no-repeat bg-center bg-cover h-screen':
+              {}
           },
           '.ellipsis': {
             '@apply w-[160px] text-ellipsis overflow-hidden whitespace-nowrap':
