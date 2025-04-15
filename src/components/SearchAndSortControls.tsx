@@ -22,7 +22,7 @@ const SearchAndSortControls = ({
         className="w-full rounded-md border-2 border-primary bg-white p-2 text-sm text-rose-900 focus:outline-none focus:ring-2 focus:ring-primary"
         onChange={(e) => setSortDirection(e.target.value as SortDirection)}
       >
-        <option value="">No direction</option>
+        <option value="">Unsorted</option>
         <option value="ASC">Ascendent</option>
         <option value="DESC">Descendent</option>
       </select>
