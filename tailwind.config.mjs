@@ -48,6 +48,10 @@ export default {
       gridTemplateColumns: {
         'auto-fill-250': 'repeat(auto-fill, minmax(250px, 1fr))',
         'auto-fit-250': 'repeat(auto-fit, minmax(250px, 1fr))'
+      },
+
+      content: {
+        confirmedIcon: 'url("/images/icon-order-confirmed.svg")'
       }
     }
   },
@@ -56,7 +60,7 @@ export default {
       addBase({}),
         addComponents({
           '.container': {
-            '@apply max-w-[70rem] mx-auto py-6 px-5 sm:p-10 lg:max-w-[80rem]':
+            '@apply max-w-[70rem] min-h-[100svh] mx-auto py-6 px-5 sm:p-10 lg:max-w-[80rem]':
               {}
           },
           '.modal': {

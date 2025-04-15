@@ -100,15 +100,15 @@ const Menu = () => {
 
   return (
     <>
-      <SearchAndSortControls
-        setSearchText={setSearchText}
-        setSortDirection={setSortDirection}
-      />
-
       <div className="container grid gap-8 lg:grid-cols-[.7fr_.3fr] lg:gap-10">
         <div className="grid gap-12">
-          <div className="grid gap-4 justify-items-center">
-            <h1 className="heading1">Menu</h1>
+          <div className="grid grid-cols-[.3fr_.7fr] items-center">
+            <SearchAndSortControls
+              setSearchText={setSearchText}
+              setSortDirection={setSortDirection}
+            />
+            <h1 className="heading1 ml-[7rem]">Menu</h1>
+
             <CategoryFilter
               menuData={menuData}
               selectedCategories={selectedCategories}
