@@ -1,23 +1,23 @@
-import { MenuCategory, Product } from 'data/menuData'
+import { MenuCategory } from 'data/menuData'
 
-type UpdateProductQuantityProps = {
-  id: string
-  menuProducts: MenuCategory[]
+const updateQuantity = (
+  productId: string,
+  menuData: MenuCategory[],
   quantity: number
+) => {
+  return menuData.map((item) => {
+    return {
+      ...item,
+      products: item.products.map((product) => {
+        if (product.id === productId) {
+          return {
+            ...product,
+            quantity: (product.quantity ?? 0) + quantity
+          }
+        } else return product
+      })
+    }
+  })
 }
 
-const updateProductQuantity = ({
-  id,
-  menuProducts,
-  quantity
-}: UpdateProductQuantityProps) => {
-  return menuProducts.flatMap((category: MenuCategory) =>
-    category.products.map((product: Product) => {
-      return product.id === id
-        ? { ...product, quantity: (product.quantity ?? 0) + quantity }
-        : product
-    })
-  )
-}
-
-export default updateProductQuantity
+export default updateQuantity
